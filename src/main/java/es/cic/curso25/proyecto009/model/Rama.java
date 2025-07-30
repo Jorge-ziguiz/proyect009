@@ -2,6 +2,7 @@ package es.cic.curso25.proyecto009.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -22,8 +23,8 @@ public class Rama {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Version
-    private Long Version;
+    // @Version
+    // private Long Version;
 
     private Double LongitudEnMetros;
 
@@ -31,13 +32,13 @@ public class Rama {
 
     private String Forma;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE})
-    @JoinColumn(name = "arbol_id")
-    private Arbol arbol;
+    // @ManyToOne(fetch = FetchType.LAZY,cascade =
+    // {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE})
+    // @JoinColumn(name = "arbol_id")
+    // private Arbol arbol;
 
-    @OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REMOVE }, mappedBy = "rama", fetch = FetchType.LAZY)
+    @OneToMany(orphanRemoval = true, cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
+            CascadeType.REMOVE }, fetch = FetchType.LAZY)
     private List<Hoja> hojas;
 
     public Long getId() {
@@ -72,13 +73,13 @@ public class Rama {
         Forma = forma;
     }
 
-    public Arbol getArbol() {
-        return arbol;
-    }
+    // public Arbol getArbol() {
+    // return arbol;
+    // }
 
-    public void setArbol(Arbol arbol) {
-        this.arbol = arbol;
-    }
+    // public void setArbol(Arbol arbol) {
+    // this.arbol = arbol;
+    // }
 
     public List<Hoja> getHojas() {
         return hojas;
@@ -88,6 +89,14 @@ public class Rama {
         this.hojas = hojas;
     }
 
+    // public Long getVersion() {
+    // return Version;
+    // }
+
+    // public void setVersion(Long version) {
+    // Version = version;
+    // }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -96,7 +105,7 @@ public class Rama {
         result = prime * result + ((LongitudEnMetros == null) ? 0 : LongitudEnMetros.hashCode());
         result = prime * result + ((Color == null) ? 0 : Color.hashCode());
         result = prime * result + ((Forma == null) ? 0 : Forma.hashCode());
-        result = prime * result + ((arbol == null) ? 0 : arbol.hashCode());
+        // result = prime * result + ((arbol == null) ? 0 : arbol.hashCode());
         return result;
     }
 
@@ -129,11 +138,11 @@ public class Rama {
                 return false;
         } else if (!Forma.equals(other.Forma))
             return false;
-        if (arbol == null) {
-            if (other.arbol != null)
-                return false;
-        } else if (!arbol.equals(other.arbol))
-            return false;
+        // if (arbol == null) {
+        // if (other.arbol != null)
+        // return false;
+        // } else if (!arbol.equals(other.arbol))
+        // return false;
         return true;
     }
 
@@ -142,7 +151,5 @@ public class Rama {
         return "Rama [Id=" + Id + ", LongitudEnMetros=" + LongitudEnMetros + ", Color=" + Color + ", Forma=" + Forma
                 + "]";
     }
-
-    
 
 }

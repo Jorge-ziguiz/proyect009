@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import es.cic.curso25.proyecto009.exceptionHandler.SecureNoAllowNewID;
 import es.cic.curso25.proyecto009.model.Arbol;
 import es.cic.curso25.proyecto009.service.ArbolService;
-import es.cic.curso25.proyecto009.service.HojaService;
-import es.cic.curso25.proyecto009.service.RamaService;
 
 @RestController
 @RequestMapping(path = "arbol")
@@ -30,8 +28,6 @@ public class ArbolController {
 
     @Autowired
     private ArbolService arbolService;
-
-
 
     @PostMapping()
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -70,13 +66,13 @@ public class ArbolController {
     }
 
     @PutMapping()
-    @ResponseStatus(code = HttpStatus.OK)
-    public Arbol update(@RequestBody Arbol arbol) {
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    public void update(@RequestBody Arbol arbol) {
         if ((arbolService.getById(arbol.getId())) == null) {
             LOGGER.error("no se actualizar una entidad que no este en la base de datos id");
             throw new SecureNoAllowNewID("no se puede crear una entidad con id");
         }
-        return arbolService.create(arbol);
+        arbolService.update(arbol);
     }
 
 }

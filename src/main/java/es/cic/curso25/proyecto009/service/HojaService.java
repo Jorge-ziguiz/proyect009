@@ -2,6 +2,7 @@ package es.cic.curso25.proyecto009.service;
 
 import java.util.List;
 
+import org.hibernate.dialect.AbstractHANADialect.HANABlobType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,12 +11,11 @@ import es.cic.curso25.proyecto009.model.Hoja;
 import es.cic.curso25.proyecto009.repository.HojaRepository;
 
 @Service
-@Transactional
+
 public class HojaService {
 
     @Autowired
     private HojaRepository hojaRepository;
-
 
     public Hoja create(Hoja hoja) {
         return hojaRepository.save(hoja);
@@ -32,6 +32,11 @@ public class HojaService {
     }
 
     public void update(Hoja rama) {
-        hojaRepository.save(rama);
+        hojaRepository.saveAndFlush(rama);
+    }
+
+    public void deleteById(Long id) {
+        hojaRepository.deleteById(id);
+        
     }
 }

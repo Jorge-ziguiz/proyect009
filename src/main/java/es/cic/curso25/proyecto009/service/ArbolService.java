@@ -1,13 +1,13 @@
 package es.cic.curso25.proyecto009.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.cic.curso25.proyecto009.model.Arbol;
+
 import es.cic.curso25.proyecto009.repository.ArbolRepository;
 
 @Service
@@ -17,21 +17,7 @@ public class ArbolService {
     @Autowired
     private ArbolRepository arbolRepository;
 
-    @Autowired
-    private RamaService ramaService;
-
-    @Autowired
-    private HojaService hojaService;
-
     public Arbol create(Arbol arbol) {
-
-        if (arbol.getRamas()!=null && !arbol.getRamas().isEmpty()) {
-            arbol.getRamas().forEach(r -> {
-                ramaService.create(r);
-
-            });
-        }
-
         return arbolRepository.save(arbol);
     }
 
@@ -51,6 +37,31 @@ public class ArbolService {
 
     public void update(Arbol arbol) {
         arbolRepository.save(arbol);
+
+        // List<Rama> ramas = new ArrayList<>();
+        // List<Hoja> hojas = new ArrayList<>();
+        // if (arbol.getRamas() != null && !(ramas = arbol.getRamas()).isEmpty()) {
+
+        // for (Rama rama : ramas) {
+        // if (rama.getHojas() != null && !(hojas = rama.getHojas()).isEmpty())
+
+        // for (Hoja hoja : hojas) {
+        // if (hoja.getTipo() != null) {
+        // continue;
+        // }
+        // if (hoja.getColor() == null) {
+        // hojaService.deleteById(hoja.getId());
+        // }
+        // }
+
+        // if (rama.getForma() != null) {
+        // continue;
+        // }
+        // if (rama.getColor() == null && rama.getLongitudEnMetros() == null) {
+        // ramaService.deleteById(rama.getId());
+        // }
+        // }
+        // }
     }
 
 }

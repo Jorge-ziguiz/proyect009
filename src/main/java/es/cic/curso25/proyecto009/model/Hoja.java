@@ -3,13 +3,9 @@ package es.cic.curso25.proyecto009.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Version;
 
 @Entity
 public class Hoja {
@@ -18,17 +14,12 @@ public class Hoja {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Version
-    private Long Version;
+    // @Version
+    // private Long Version;
 
     private String tipo;
 
     private String color;
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rama_id")
-    private Rama rama;
 
     public Long getId() {
         return Id;
@@ -37,7 +28,6 @@ public class Hoja {
     public void setId(Long id) {
         Id = id;
     }
-
 
     public String getTipo() {
         return tipo;
@@ -55,13 +45,13 @@ public class Hoja {
         this.color = color;
     }
 
-    public Rama getRama() {
-        return rama;
-    }
+    // public Long getVersion() {
+    // return Version;
+    // }
 
-    public void setRama(Rama rama) {
-        this.rama = rama;
-    }
+    // public void setVersion(Long Version) {
+    // this.Version = Version;
+    // }
 
     @Override
     public int hashCode() {
@@ -70,7 +60,6 @@ public class Hoja {
         result = prime * result + ((Id == null) ? 0 : Id.hashCode());
         result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
         result = prime * result + ((color == null) ? 0 : color.hashCode());
-        result = prime * result + ((rama == null) ? 0 : rama.hashCode());
         return result;
     }
 
@@ -98,17 +87,13 @@ public class Hoja {
                 return false;
         } else if (!color.equals(other.color))
             return false;
-        if (rama == null) {
-            if (other.rama != null)
-                return false;
-        } else if (!rama.equals(other.rama))
-            return false;
+
         return true;
     }
 
     @Override
     public String toString() {
-        return "Hoja [Id=" + Id + ", tipo=" + tipo + ", color=" + color + ", rama=" + rama + "]";
+        return "Hoja [Id=" + Id + ", tipo=" + tipo + ", color=" + color + "]";
     }
 
 }

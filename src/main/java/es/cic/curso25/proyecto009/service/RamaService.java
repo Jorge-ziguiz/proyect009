@@ -15,16 +15,7 @@ public class RamaService {
     @Autowired
     private RamaRepository ramaRepository;
 
-    @Autowired
-    private HojaService hojaService;
-
     public Rama create(Rama rama) {
-        if (rama.getHojas() != null && !rama.getHojas().isEmpty()) {
-            rama.getHojas().forEach(h -> {
-                hojaService.create(h);
-            });
-
-        }
         return ramaRepository.save(rama);
     }
 
@@ -40,5 +31,9 @@ public class RamaService {
 
     public void update(Rama rama) {
         ramaRepository.save(rama);
+    }
+    
+    public void deleteById(Long id) {
+        ramaRepository.deleteById(id);
     }
 }

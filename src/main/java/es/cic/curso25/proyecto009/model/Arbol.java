@@ -2,6 +2,10 @@ package es.cic.curso25.proyecto009.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -21,18 +25,18 @@ public class Arbol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Version
-    private Long version;
+    // @Version
+    // private Long Version;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String Nombre;
 
     private String Familia;
 
     private String Orden;
 
-
-    @OneToMany(mappedBy = "arbol" ,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, cascade = { CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REFRESH,CascadeType.REMOVE }, fetch = FetchType.LAZY)
     private List<Rama> ramas;
 
     public Long getId() {
@@ -43,7 +47,6 @@ public class Arbol {
         Id = id;
     }
 
- 
     public String getNombre() {
         return Nombre;
     }
@@ -75,6 +78,14 @@ public class Arbol {
     public void setRamas(List<Rama> ramas) {
         this.ramas = ramas;
     }
+
+    // public Long getVersion() {
+    //     return Version;
+    // }
+
+    // public void setVersion(Long Version) {
+    //     this.Version = Version;
+    // }
 
     @Override
     public int hashCode() {
@@ -130,16 +141,5 @@ public class Arbol {
         return "Arbol [Id=" + Id + ", Nombre=" + Nombre + ", Familia=" + Familia + ", Orden=" + Orden + "]";
 
     }
-
-    
-
-
-    
-
-  
-    
-
-
-
 
 }
