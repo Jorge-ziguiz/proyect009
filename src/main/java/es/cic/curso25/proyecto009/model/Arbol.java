@@ -43,14 +43,7 @@ public class Arbol {
         Id = id;
     }
 
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
+ 
     public String getNombre() {
         return Nombre;
     }

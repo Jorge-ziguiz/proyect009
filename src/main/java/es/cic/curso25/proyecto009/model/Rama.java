@@ -48,14 +48,6 @@ public class Rama {
         Id = id;
     }
 
-    public Long getVersion() {
-        return Version;
-    }
-
-    public void setVersion(Long version) {
-        Version = version;
-    }
-
     public Double getLongitudEnMetros() {
         return LongitudEnMetros;
     }
