@@ -2,7 +2,9 @@ package es.cic.curso25.proyecto009.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +31,8 @@ public class Arbol {
 
     private String Orden;
 
-    @OneToMany(mappedBy = "arbol" ,fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "arbol" ,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.EAGER)
     private List<Rama> ramas;
 
     public Long getId() {

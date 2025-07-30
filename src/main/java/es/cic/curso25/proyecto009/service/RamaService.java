@@ -4,16 +4,27 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.cic.curso25.proyecto009.model.Rama;
 import es.cic.curso25.proyecto009.repository.RamaRepository;
 
 @Service
+@Transactional
 public class RamaService {
     @Autowired
     private RamaRepository ramaRepository;
 
+    @Autowired
+    private HojaService hojaService;
+
     public Rama create(Rama rama) {
+        if (rama.getHojas() != null && !rama.getHojas().isEmpty()) {
+            rama.getHojas().forEach(h -> {
+                hojaService.create(h);
+            });
+
+        }
         return ramaRepository.save(rama);
     }
 

@@ -1,8 +1,10 @@
 package es.cic.curso25.proyecto009.model;
 
-
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -29,12 +31,13 @@ public class Rama {
 
     private String Forma;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="arbol_id")
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE})
+    @JoinColumn(name = "arbol_id")
     private Arbol arbol;
 
-
-    @OneToMany(mappedBy = "rama", fetch = FetchType.LAZY)
+    @OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REMOVE }, mappedBy = "rama", fetch = FetchType.LAZY)
     private List<Hoja> hojas;
 
     public Long getId() {
@@ -83,6 +86,14 @@ public class Rama {
 
     public void setArbol(Arbol arbol) {
         this.arbol = arbol;
+    }
+
+    public List<Hoja> getHojas() {
+        return hojas;
+    }
+
+    public void setHojas(List<Hoja> hojas) {
+        this.hojas = hojas;
     }
 
     @Override
@@ -140,7 +151,6 @@ public class Rama {
                 + "]";
     }
 
-    
     
 
 }

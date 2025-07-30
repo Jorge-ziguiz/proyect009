@@ -5,23 +5,43 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.cic.curso25.proyecto009.model.Arbol;
 import es.cic.curso25.proyecto009.repository.ArbolRepository;
 
 @Service
+@Transactional
 public class ArbolService {
 
     @Autowired
     private ArbolRepository arbolRepository;
 
+    @Autowired
+    private RamaService ramaService;
+
+    @Autowired
+    private HojaService hojaService;
+
     public Arbol create(Arbol arbol) {
+
+        if (arbol.getRamas()!=null && !arbol.getRamas().isEmpty()) {
+            arbol.getRamas().forEach(r -> {
+                ramaService.create(r);
+
+            });
+        }
+
         return arbolRepository.save(arbol);
     }
 
     public Arbol getById(Long id) {
         Arbol arbol = arbolRepository.findById(id).orElse(null);
         return arbol;
+    }
+
+    public void deleteById(Long id) {
+        arbolRepository.deleteById(id);
     }
 
     public List<Arbol> getByAll() {
