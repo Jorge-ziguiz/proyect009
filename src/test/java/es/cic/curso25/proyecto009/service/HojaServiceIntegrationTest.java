@@ -99,7 +99,7 @@ public class HojaServiceIntegrationTest {
         }
 
         Hojas.forEach(hoja -> {
-            if (hoja.getTipo().equals("aovada"))
+            if (hoja.getTipo() != null && hoja.getTipo().equals("aovada"))
                 hojaService.deleteById(hoja.getId());
         });
 

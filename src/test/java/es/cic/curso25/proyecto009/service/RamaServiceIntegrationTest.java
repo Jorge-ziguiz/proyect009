@@ -72,14 +72,15 @@ public class RamaServiceIntegrationTest {
 
     }
 
-    @BeforeEach
+    // @BeforeEach
     private void deleteIfExist() {
-        List<Rama> arboles = ramaService.getByAll();
+        List<Rama> ramas = ramaService.getByAll();
 
-        arboles.forEach(arbol -> {
-            if (arbol.getForma().equals("Triangular"))
+        ramas.forEach(rama -> {
+            if (rama.getForma() != null && rama.getForma().equals("Triangular")) {
+                ramaService.deleteById(rama.getId());
+            }
 
-                ramaService.deleteById(arbol.getId());
         });
     }
 }
