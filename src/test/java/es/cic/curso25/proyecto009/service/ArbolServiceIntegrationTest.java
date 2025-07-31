@@ -98,9 +98,10 @@ public class ArbolServiceIntegrationTest {
     @BeforeEach
     private void deleteIfExist() {
         List<Arbol> arboles = arbolService.getByAll();
+        
 
         arboles.forEach(arbol -> {
-            if (arbol.getNombre().equals("Espeletia"))
+            if (arbol!=null&& arbol.getNombre()!=null && arbol.getNombre().equals("Espeletia"))
 
                 arbolService.deleteById(arbol.getId());
         });
