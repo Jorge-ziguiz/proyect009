@@ -1,6 +1,7 @@
 package es.cic.curso25.proyecto009.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import es.cic.curso25.proyecto009.model.Hoja;
 import es.cic.curso25.proyecto009.model.Rama;
 
 @SpringBootTest
@@ -36,6 +38,15 @@ public class RamaServiceIntegrationTest {
     @Test
     void testGetByAll() {
 
+        Rama rama = new Rama();
+        rama.setColor("cafe");
+        rama.setForma("Triangular");
+        rama.setLongitudEnMetros(3.5);
+
+        ramaService.create(rama).getId();
+
+        List<Rama> ramas = ramaService.getByAll();
+        assertTrue(ramas.size() >= 1);
     }
 
     @Test
@@ -69,6 +80,23 @@ public class RamaServiceIntegrationTest {
         Rama resultadoActualizado = ramaService.getById(id);
 
         assertEquals(resultadoActualizado.getColor(), "nuevo color");
+
+    }
+
+    @Test
+    void testDeleteById() {
+        Rama rama = new Rama();
+        rama.setColor("cafe");
+        rama.setForma("Triangular");
+        rama.setLongitudEnMetros(3.5);
+
+        Long id = ramaService.create(rama).getId();
+
+        ramaService.deleteById(id);
+
+        Rama ramaget = ramaService.getById(id);
+
+        assertEquals(ramaget, null);
 
     }
 
