@@ -25,9 +25,7 @@ public class Arbol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    // @Version
-    // private Long Version;
-
+  
     @Column(nullable = false, unique = true)
     private String Nombre;
 
@@ -79,13 +77,7 @@ public class Arbol {
         this.ramas = ramas;
     }
 
-    // public Long getVersion() {
-    //     return Version;
-    // }
-
-    // public void setVersion(Long Version) {
-    //     this.Version = Version;
-    // }
+ 
 
     @Override
     public int hashCode() {

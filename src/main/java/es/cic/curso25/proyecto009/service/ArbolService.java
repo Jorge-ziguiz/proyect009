@@ -37,31 +37,6 @@ public class ArbolService {
 
     public void update(Arbol arbol) {
         arbolRepository.save(arbol);
-
-        // List<Rama> ramas = new ArrayList<>();
-        // List<Hoja> hojas = new ArrayList<>();
-        // if (arbol.getRamas() != null && !(ramas = arbol.getRamas()).isEmpty()) {
-
-        // for (Rama rama : ramas) {
-        // if (rama.getHojas() != null && !(hojas = rama.getHojas()).isEmpty())
-
-        // for (Hoja hoja : hojas) {
-        // if (hoja.getTipo() != null) {
-        // continue;
-        // }
-        // if (hoja.getColor() == null) {
-        // hojaService.deleteById(hoja.getId());
-        // }
-        // }
-
-        // if (rama.getForma() != null) {
-        // continue;
-        // }
-        // if (rama.getColor() == null && rama.getLongitudEnMetros() == null) {
-        // ramaService.deleteById(rama.getId());
-        // }
-        // }
-        // }
     }
 
 }

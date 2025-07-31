@@ -100,7 +100,6 @@ public class RamaServiceIntegrationTest {
 
     }
 
-    // @BeforeEach
     private void deleteIfExist() {
         List<Rama> ramas = ramaService.getByAll();
 

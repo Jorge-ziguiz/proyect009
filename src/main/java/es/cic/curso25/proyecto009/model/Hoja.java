@@ -14,9 +14,6 @@ public class Hoja {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    // @Version
-    // private Long Version;
-
     private String tipo;
 
     private String color;
@@ -44,14 +41,6 @@ public class Hoja {
     public void setColor(String color) {
         this.color = color;
     }
-
-    // public Long getVersion() {
-    // return Version;
-    // }
-
-    // public void setVersion(Long Version) {
-    // this.Version = Version;
-    // }
 
     @Override
     public int hashCode() {

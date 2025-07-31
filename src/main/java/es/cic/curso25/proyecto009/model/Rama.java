@@ -23,19 +23,11 @@ public class Rama {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    // @Version
-    // private Long Version;
-
     private Double LongitudEnMetros;
 
     private String Color;
 
     private String Forma;
-
-    // @ManyToOne(fetch = FetchType.LAZY,cascade =
-    // {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE})
-    // @JoinColumn(name = "arbol_id")
-    // private Arbol arbol;
 
     @OneToMany(orphanRemoval = true, cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
             CascadeType.REMOVE }, fetch = FetchType.LAZY)
@@ -73,13 +65,7 @@ public class Rama {
         Forma = forma;
     }
 
-    // public Arbol getArbol() {
-    // return arbol;
-    // }
 
-    // public void setArbol(Arbol arbol) {
-    // this.arbol = arbol;
-    // }
 
     public List<Hoja> getHojas() {
         return hojas;
@@ -89,13 +75,6 @@ public class Rama {
         this.hojas = hojas;
     }
 
-    // public Long getVersion() {
-    // return Version;
-    // }
-
-    // public void setVersion(Long version) {
-    // Version = version;
-    // }
 
     @Override
     public int hashCode() {
@@ -105,7 +84,6 @@ public class Rama {
         result = prime * result + ((LongitudEnMetros == null) ? 0 : LongitudEnMetros.hashCode());
         result = prime * result + ((Color == null) ? 0 : Color.hashCode());
         result = prime * result + ((Forma == null) ? 0 : Forma.hashCode());
-        // result = prime * result + ((arbol == null) ? 0 : arbol.hashCode());
         return result;
     }
 
@@ -138,11 +116,7 @@ public class Rama {
                 return false;
         } else if (!Forma.equals(other.Forma))
             return false;
-        // if (arbol == null) {
-        // if (other.arbol != null)
-        // return false;
-        // } else if (!arbol.equals(other.arbol))
-        // return false;
+  
         return true;
     }
 
