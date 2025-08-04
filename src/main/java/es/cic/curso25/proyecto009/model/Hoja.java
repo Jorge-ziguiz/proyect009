@@ -1,11 +1,15 @@
 package es.cic.curso25.proyecto009.model;
 
+import org.hibernate.annotations.ManyToAny;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Hoja {
@@ -17,6 +21,11 @@ public class Hoja {
     private String tipo;
 
     private String color;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Rama rama;
+
 
     public Long getId() {
         return Id;
@@ -83,6 +92,14 @@ public class Hoja {
     @Override
     public String toString() {
         return "Hoja [Id=" + Id + ", tipo=" + tipo + ", color=" + color + "]";
+    }
+
+    public Rama getRama() {
+        return rama;
+    }
+
+    public void setRama(Rama rama) {
+        this.rama = rama;
     }
 
 }

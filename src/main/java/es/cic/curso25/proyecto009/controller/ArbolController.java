@@ -36,7 +36,6 @@ public class ArbolController {
             LOGGER.error("no se puede crear una entidad con id");
             throw new SecureNoAllowNewID("no se puede crear una entidad con id");
         }
-        arbol.setRamas(null);
         return arbolService.create(arbol);
     }
 

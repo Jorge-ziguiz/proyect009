@@ -16,9 +16,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 
 @Entity
+@Table(name = "rama")
 public class Arbol {
 
     @Id
@@ -33,8 +35,7 @@ public class Arbol {
 
     private String Orden;
 
-    @OneToMany(orphanRemoval = true, cascade = { CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH,CascadeType.REMOVE }, fetch = FetchType.LAZY)
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<Rama> ramas;
 
     public Long getId() {
@@ -87,7 +88,6 @@ public class Arbol {
         result = prime * result + ((Nombre == null) ? 0 : Nombre.hashCode());
         result = prime * result + ((Familia == null) ? 0 : Familia.hashCode());
         result = prime * result + ((Orden == null) ? 0 : Orden.hashCode());
-        result = prime * result + ((ramas == null) ? 0 : ramas.hashCode());
         return result;
     }
 
@@ -120,11 +120,7 @@ public class Arbol {
                 return false;
         } else if (!Orden.equals(other.Orden))
             return false;
-        if (ramas == null) {
-            if (other.ramas != null)
-                return false;
-        } else if (!ramas.equals(other.ramas))
-            return false;
+      
         return true;
     }
 

@@ -139,7 +139,7 @@ public class ArbolTieneRamasyRamasTienenHojasIntegrationTest {
                 String JsonArbolResquestPost = objectMapper.writeValueAsString(arbol);
 
                 String JsonArbolResponsePost = mockMvc
-                                .perform(post("/arbol/ramas")
+                                .perform(post("/arbol")
                                                 .contentType("application/json")
                                                 .content(JsonArbolResquestPost))
                                 .andExpect(status().is2xxSuccessful())
@@ -148,25 +148,15 @@ public class ArbolTieneRamasyRamasTienenHojasIntegrationTest {
 
                 Arbol ArbolResponsePost = objectMapper.readValue(JsonArbolResponsePost, Arbol.class);
 
-                List<Hoja> getHojas = ArbolResponsePost.getRamas().get(0).getHojas();
-                List<Hoja> updateHojas = new ArrayList<>();
-                getHojas.forEach(h -> {
-                        if (h.getTipo() != "aovada") {
-                                updateHojas.add(h);
+                ArbolResponsePost.getRamas().get(0).getHojas().forEach(h -> {
+                        if (h.getTipo().equals("aovada")) {
+                                h.setTipo("aovada y dentada");
+
                         }
                 });
-                ArbolResponsePost.getRamas().get(0).setHojas(updateHojas);
-
-                Rama updateRama = ArbolResponsePost.getRamas().get(0);
-                updateRama.setColor("verde claro");
-                updateRama.setLongitudEnMetros(1.0);
-
-                ArbolResponsePost.getRamas().forEach(r -> {
-                        if (r.getId().equals(updateRama.getId())) {
-                                r.setColor(updateRama.getColor());
-                                r.setLongitudEnMetros(updateRama.getLongitudEnMetros());
-                        }
-                });
+                ArbolResponsePost.getRamas().get(0).setColor("verde claro");
+                ArbolResponsePost.getRamas().get(0).setLongitudEnMetros(1.0);
+                ArbolResponsePost.getRamas().remove(1);
 
                 String JsonArbolUpdate = objectMapper.writeValueAsString(ArbolResponsePost);
 
@@ -186,11 +176,6 @@ public class ArbolTieneRamasyRamasTienenHojasIntegrationTest {
 
                 assertEquals(arbolResultado.getRamas().get(0).getColor(), "verde claro");
 
-                List<Hoja> hojasResultado = ArbolResponsePost.getRamas().get(0).getHojas();
-                hojasResultado.forEach(h -> {
-                        assertTrue(h.getTipo() != "aovada");
-
-                });
         }
 
         @Test

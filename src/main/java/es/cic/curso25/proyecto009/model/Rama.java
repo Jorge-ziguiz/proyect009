@@ -14,9 +14,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 
 @Entity
+@Table(name = "arbol")
 public class Rama {
 
     @Id
@@ -29,8 +31,12 @@ public class Rama {
 
     private String Forma;
 
-    @OneToMany(orphanRemoval = true, cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
-            CascadeType.REMOVE }, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Arbol arbol;
+
+    
+    @OneToMany(orphanRemoval = true, cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Hoja> hojas;
 
     public Long getId() {
@@ -124,6 +130,14 @@ public class Rama {
     public String toString() {
         return "Rama [Id=" + Id + ", LongitudEnMetros=" + LongitudEnMetros + ", Color=" + Color + ", Forma=" + Forma
                 + "]";
+    }
+
+    public Arbol getArbol() {
+        return arbol;
+    }
+
+    public void setArbol(Arbol arbol) {
+        this.arbol = arbol;
     }
 
 }
