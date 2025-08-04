@@ -148,14 +148,10 @@ public class ArbolTieneRamasyRamasTienenHojasIntegrationTest {
 
                 Arbol ArbolResponsePost = objectMapper.readValue(JsonArbolResponsePost, Arbol.class);
 
-                ArbolResponsePost.getRamas().get(0).getHojas().forEach(h -> {
-                        if (h.getTipo().equals("aovada")) {
-                                h.setTipo("aovada y dentada");
-
-                        }
-                });
+                assertTrue(ArbolResponsePost.getRamas().size() > 0);
                 ArbolResponsePost.getRamas().get(0).setColor("verde claro");
                 ArbolResponsePost.getRamas().get(0).setLongitudEnMetros(1.0);
+                ArbolResponsePost.getRamas().get(0).getHojas().remove(1);
                 ArbolResponsePost.getRamas().remove(1);
 
                 String JsonArbolUpdate = objectMapper.writeValueAsString(ArbolResponsePost);
@@ -175,6 +171,7 @@ public class ArbolTieneRamasyRamasTienenHojasIntegrationTest {
                 Arbol arbolResultado = objectMapper.readValue(JsonArbolResponseGet, Arbol.class);
 
                 assertEquals(arbolResultado.getRamas().get(0).getColor(), "verde claro");
+                assertTrue(arbolResultado.getRamas().get(0).getHojas().size() <2);
 
         }
 

@@ -32,11 +32,11 @@ public class Rama {
     private String Forma;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Arbol arbol;
 
     
     @OneToMany(orphanRemoval = true, cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Hoja> hojas;
 
     public Long getId() {
@@ -72,13 +72,20 @@ public class Rama {
     }
 
 
-
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     public List<Hoja> getHojas() {
         return hojas;
     }
 
     public void setHojas(List<Hoja> hojas) {
         this.hojas = hojas;
+    }
+        public Arbol getArbol() {
+        return arbol;
+    }
+
+    public void setArbol(Arbol arbol) {
+        this.arbol = arbol;
     }
 
 
@@ -132,12 +139,6 @@ public class Rama {
                 + "]";
     }
 
-    public Arbol getArbol() {
-        return arbol;
-    }
 
-    public void setArbol(Arbol arbol) {
-        this.arbol = arbol;
-    }
 
 }

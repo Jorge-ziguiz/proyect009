@@ -35,7 +35,7 @@ public class Arbol {
 
     private String Orden;
 
-    @OneToMany(orphanRemoval = true, cascade = {CascadeType.ALL }, fetch = FetchType.LAZY)
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE }, fetch = FetchType.LAZY)
     private List<Rama> ramas;
 
     public Long getId() {
